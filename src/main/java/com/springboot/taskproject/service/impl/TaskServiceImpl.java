@@ -27,12 +27,11 @@ public class TaskServiceImpl implements TaskService{
 	Task savedTask=taskRepository.save(task);
 	
 	
-		return ModelMapper.map(savedTask,TaskDto.class);
+		return modelMapper.map(savedTask,TaskDto.class);
 	}
 
 
 	public List<TaskDto> getAllTasks(long userid) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
