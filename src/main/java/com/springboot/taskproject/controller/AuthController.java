@@ -14,7 +14,7 @@ import com.springboot.taskproject.repository.UserRepository;
 import com.springboot.taskproject.service.UserService;
 
 @RestController
-@RequestMapping("/ap/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 	@Autowired
 	private UserService userService;
