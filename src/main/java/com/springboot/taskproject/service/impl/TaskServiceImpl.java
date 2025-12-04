@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.taskproject.entity.Task;
 import com.springboot.taskproject.entity.Users;
+import com.springboot.taskproject.exception.UserNotFound;
 import com.springboot.taskproject.payload.TaskDto;
 import com.springboot.taskproject.repository.TaskRepository;
 import com.springboot.taskproject.repository.UserRepository;
@@ -22,7 +23,7 @@ public class TaskServiceImpl implements TaskService{
 	private TaskRepository taskRepository;
 	public TaskDto saveTask(long userid, TaskDto taskDto) {
 		//first we validate the user id
-	Users users=userRepository.findById(userid).get();
+	Users users=userRepository.findById(userid).orElseThrow(()-> new UserNotFound(String.format("User id %d not found", userid)));
 	Task task=modelMapper.map(taskDto, Task.class);
 	Task savedTask=taskRepository.save(task);
 	
