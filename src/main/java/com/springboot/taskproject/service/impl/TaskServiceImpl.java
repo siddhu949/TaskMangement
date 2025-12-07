@@ -1,6 +1,7 @@
 package com.springboot.taskproject.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,14 @@ public class TaskServiceImpl implements TaskService{
 
 
 	public List<TaskDto> getAllTasks(long userid) {
-		return null;
+		Users users=userRepository.findById(userid).orElseThrow(
+				()-> new UserNotFound(String.format("User id %d not found", userid))
+				);
+		List<Task> tasks = taskRepository.findAllByUsersId(userid);
+		
+		return tasks.stream().map(
+				task -> modelMapper.map(task, TaskDto.class)
+				).collect(Collectors.toList());
 	}
 
 
